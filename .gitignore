@@ -1,0 +1,8 @@
+*
+!.gitignore
+!.bashrc
+!.bash_colors
+!.git-prompt.sh
+!.bash_aliases
+!my_prompt.png
+
