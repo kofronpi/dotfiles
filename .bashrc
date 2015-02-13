@@ -43,8 +43,8 @@ source ~/.bash_colors
 # Bash git prompt support
 source ~/.git-prompt.sh
 
-# My nice prompt
-PS1="\u@\h \[${Yellow}\]λ \W \[${Green}\]\$(__git_ps1)\[${White}\]$ "
+# My git-aware prompt
+PS1="\u@\h \[${Yellow}\]λ \W \[${Green}\]\$git_branch\[${Red}\]\$git_dirty\[${White}\]$ "
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
