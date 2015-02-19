@@ -5,6 +5,9 @@ find_git_branch() {
       branch='detached*'
     fi
     git_branch="($branch)"
+    if [[ "$(git rev-parse --git-dir)" == "$HOME/.git" ]]; then
+      git_branch=""
+    fi
   else
     git_branch=""
   fi
