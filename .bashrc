@@ -89,3 +89,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export NVM_DIR="/home/pak/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export GENYMOTION_APP="$HOME/Dev/genymotion/genymotion"
+export GENYMOTION_SHELL="/home/pak/Dev/genymotion/genymotion-shell"

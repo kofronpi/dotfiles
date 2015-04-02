@@ -32,5 +32,4 @@ alias gsuba="git submodule add"
 alias gsubi="git submodule init"
 alias gsubu="git submodule update"
 alias gmerge="git merge --no-ff"
-alias gpick="git cherry-pick"
 
