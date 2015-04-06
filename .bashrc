@@ -92,3 +92,5 @@ export NVM_DIR="/home/pak/.nvm"
 
 export GENYMOTION_APP="$HOME/Dev/genymotion/genymotion"
 export GENYMOTION_SHELL="/home/pak/Dev/genymotion/genymotion-shell"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
