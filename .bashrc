@@ -42,6 +42,8 @@ fi
 source ~/.bash_colors
 # Bash git prompt support
 source ~/.git-prompt.sh
+# Autologin to coworking space network
+source ~/.cordee-autologin.sh
 
 # My git-aware prompt
 PS1="\u@\h \[${Yellow}\]λ \W \[${Green}\]\$git_branch\[${Red}\]\$git_dirty\[${White}\]$ "
