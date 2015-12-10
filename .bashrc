@@ -43,9 +43,6 @@ source ~/.bash_colors
 # Bash git prompt support
 source ~/.git-prompt.sh
 
-# My git-aware prompt
-PS1="\u@\h \[${Yellow}\]λ \W \[${Green}\]\$git_branch\[${Red}\]\$git_dirty\[${White}\]$ "
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -87,7 +84,5 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export NVM_DIR="/home/pak/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export GENYMOTION_APP="$HOME/Dev/genymotion/genymotion"
-export GENYMOTION_SHELL="/home/pak/Dev/genymotion/genymotion-shell"
 export PATH="$PATH:$HOME/.rvm/bin" #Add RVM to PATH for scripting
 
