@@ -26,6 +26,9 @@ shopt -s checkwinsize
 # Insert !id commands into shell instead of executing it
 shopt -s histverify
 
+#update histfile after every command
+export PROMPT_COMMAND="history -a"
+
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
