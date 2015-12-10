@@ -1,34 +1,102 @@
-find_git_branch() {
-  local branch
+#!/bin/bash
+#
+# AUTHOR:
+#   Pierre-Alexandre Kofron
+#   Based on work by Scott Woods <scott@westarete.com>
+#   http://gist.github.com/657287
+#
+
+# The various escape codes that we can use to color our prompt.
+source ~/.bash_colors
+
+# Detect whether the current directory is a git repository.
+function is_git_repository {
+  git branch > /dev/null 2>&1
+}
+
+# Determine the branch/state information for this git repository.
+function set_git_branch {
+  # Capture the output of the "git status" command.
+  git_status="$(git status 2> /dev/null)"
+
+  # Set color based on clean/staged/dirty.
+  if [[ ${git_status} =~ "working directory clean" ]]; then
+    state="${Green}"
+  elif [[ ${git_status} =~ "Changes to be committed" ]]; then
+    state="${IYellow}"
+  else
+    state="${IRed}"
+  fi
+
+  # Set arrow icon based on status against remote.
+  remote_pattern="# Your branch is (.*) of"
+  if [[ ${git_status} =~ ${remote_pattern} ]]; then
+    if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+      remote="↑"
+    else
+      remote="↓"
+    fi
+  else
+    remote=""
+  fi
+  diverge_pattern="# Your branch and (.*) have diverged"
+  if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+    remote="↕"
+  fi
+
+  # Get the name of the branch.
+  # branch_pattern="^# On branch ([^${IFS}]*)"
+  # if [[ ${git_status} =~ ${branch_pattern} ]]; then
+  #   branch=${BASH_REMATCH[1]}
+  # fi
+
   if branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null); then
     if [[ "$branch" == "HEAD" ]]; then
-      branch='detached*'
+      branch_pattern='detached*'
     fi
-    git_branch="($branch)"
+    branch_pattern="($branch)"
     if [[ "$(git rev-parse --git-dir)" == "$HOME/.git" ]]; then
-      git_branch=""
+      branch_pattern=""
     fi
   else
-    git_branch=""
+    branch_pattern=""
   fi
+
+  # Set the final branch string.
+  BRANCH="${state}(${branch})${remote}${Color_Off} "
 }
 
-find_git_dirty() {
-  local status=$(git status --porcelain 2> /dev/null)
-  if [[ "$status" != "" ]]; then
-    git_dirty='*'
+function parse_ruby_version {
+  ruby -v | cut -d" " -f2
+}
+
+# Return the prompt symbol to use, colorized based on the return value of the
+# previous command.
+function set_prompt_symbol () {
+  if test $1 -eq 0 ; then
+      PROMPT_SYMBOL="\$"
   else
-    git_dirty=''
+      PROMPT_SYMBOL="${Red}\$${Color_Off}"
   fi
 }
 
-PROMPT_COMMAND="find_git_branch; find_git_dirty; $PROMPT_COMMAND"
+# Set the full bash prompt.
+function set_bash_prompt () {
+  # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
+  # return value of the last command.
+  set_prompt_symbol $?
 
-# Default Git enabled prompt with dirty state
-# export PS1="\u@\h \w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ "
+  # Set the BRANCH variable.
+  if is_git_repository ; then
+    set_git_branch
+  else
+    BRANCH=''
+  fi
 
-# Another variant:
-# export PS1="\[$bldgrn\]\u@\h\[$txtrst\] \w \[$bldylw\]\$git_branch\[$txtcyn\]\$git_dirty\[$txtrst\]\$ "
+  # Set the bash prompt variable.
+  PS1="\u@\h \[${Green}\]($(parse_ruby_version)) \[${Yellow}\]λ \W ${BRANCH}${PROMPT_SYMBOL}\[${White}\] "
 
-# Default Git enabled root prompt (for use with "sudo -s")
-# export SUDO_PS1="\[$bakred\]\u@\h\[$txtrst\] \w\$ "
+}
+
+# Tell bash to execute this function just before displaying its prompt.
+PROMPT_COMMAND=set_bash_prompt
