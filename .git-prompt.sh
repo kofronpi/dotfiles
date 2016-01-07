@@ -104,9 +104,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  #PS1="\u@\h \[${Green}\]($(parse_ruby_version)) \[${Yellow}\]λ \W \[${BRANCH}\] \[${White}\]$ "
-
-  PS1="\u@\h \[${Green}\]${RUBY} \[${Yellow}\]λ \W \[${White}\]$ "
+  PS1="\u@\h \[${Green}\]${RUBY} \[${Yellow}\]λ \W \[${BRANCH}\] \[${White}\]$ "
 
 }
 
