@@ -14,6 +14,22 @@ function is_git_repository {
   git branch > /dev/null 2>&1
 }
 
+function is_ruby_folder {
+  grep 'rails' 'Gemfile' > /dev/null 2>&1
+}
+
+# function is_node_folder {
+
+# }
+
+# function is_elixir_folder {
+
+# }
+
+function parse_ruby_version {
+  ruby -v | cut -d" " -f2
+}
+
 # Determine the branch/state information for this git repository.
 function set_git_branch {
   # Capture the output of the "git status" command.
@@ -63,28 +79,22 @@ function set_git_branch {
   fi
 
   # Set the final branch string.
-  BRANCH="${state}(${branch})${remote}${Color_Off} "
-}
-
-function parse_ruby_version {
-  ruby -v | cut -d" " -f2
-}
-
-# Return the prompt symbol to use, colorized based on the return value of the
-# previous command.
-function set_prompt_symbol () {
-  if test $1 -eq 0 ; then
-      PROMPT_SYMBOL="\$"
-  else
-      PROMPT_SYMBOL="${Red}\$${Color_Off}"
-  fi
+  BRANCH="${state}(${branch})${remote}${Color_Off}"
 }
 
 # Set the full bash prompt.
 function set_bash_prompt () {
-  # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
-  # return value of the last command.
-  set_prompt_symbol $?
+
+  # Set the node version
+
+  # Set the elixir version
+
+  # Set the ruby version
+  if is_ruby_folder ; then
+    RUBY="$(parse_ruby_version)";
+  else
+    RUBY=""
+  fi
 
   # Set the BRANCH variable.
   if is_git_repository ; then
@@ -94,7 +104,9 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="\u@\h \[${Green}\]($(parse_ruby_version)) \[${Yellow}\]λ \W ${BRANCH}${PROMPT_SYMBOL}\[${White}\] "
+  #PS1="\u@\h \[${Green}\]($(parse_ruby_version)) \[${Yellow}\]λ \W \[${BRANCH}\] \[${White}\]$ "
+
+  PS1="\u@\h \[${Green}\]${RUBY} \[${Yellow}\]λ \W \[${White}\]$ "
 
 }
 
