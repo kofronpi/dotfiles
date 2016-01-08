@@ -2,35 +2,53 @@
 #
 # AUTHOR:
 #   Pierre-Alexandre Kofron
-#   Based on work by Scott Woods <scott@westarete.com>
-#   http://gist.github.com/657287
 #
 
 # The various escape codes that we can use to color our prompt.
 source ~/.bash_colors
+
+function check_file_existence {
+  if [ -f $1 ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function is_ruby_folder {
+  check_file_existence 'Gemfile'
+}
+
+function is_node_folder {
+  check_file_existence 'package.json'
+}
+
+function is_elixir_folder {
+  check_file_existence 'mix.exs'
+}
 
 # Detect whether the current directory is a git repository.
 function is_git_repository {
   git branch > /dev/null 2>&1
 }
 
-function is_ruby_folder {
+function is_rails_folder {
   grep 'rails' 'Gemfile' > /dev/null 2>&1
 }
-
-# function is_node_folder {
-
-# }
-
-# function is_elixir_folder {
-
-# }
 
 function parse_ruby_version {
   ruby -v | cut -d" " -f2
 }
 
+function parse_elixir_version {
+  stringE=`elixir -v`
+  substring=${stringE:(-5)}
+  ELIXIR="$substring"
+}
+
 # Determine the branch/state information for this git repository.
+#   Based on work by Scott Woods <scott@westarete.com>
+#   http://gist.github.com/657287
 function set_git_branch {
   # Capture the output of the "git status" command.
   git_status="$(git status 2> /dev/null)"
@@ -86,8 +104,18 @@ function set_git_branch {
 function set_bash_prompt () {
 
   # Set the node version
+  if is_node_folder ; then
+    NODE=`node -v`
+  else
+    NODE=""
+  fi
 
   # Set the elixir version
+  if is_elixir_folder ; then
+    parse_elixir_version
+  else
+    ELIXIR=""
+  fi
 
   # Set the ruby version
   if is_ruby_folder ; then
@@ -104,7 +132,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="\u@\h \[${Green}\]${RUBY} \[${Yellow}\]λ \W \[${BRANCH}\] \[${White}\]$ "
+  PS1="\u@\h \[${Green}\]${RUBY}${NODE} \[${Yellow}\]λ \[${Green}\]${ELIXIR} \[${Yellow}\]\W \[${BRANCH}\] \[${White}\]$ "
 
 }
 
