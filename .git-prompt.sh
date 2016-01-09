@@ -23,12 +23,6 @@ function parse_ruby_version {
   ruby -v | cut -d" " -f2
 }
 
-function parse_elixir_version {
-  stringE=`elixir -v`
-  substring=${stringE:(-5)}
-  ELIXIR="$substring"
-}
-
 # Determine the branch/state information for this git repository.
 #   Based on work by Scott Woods <scott@westarete.com>
 #   http://gist.github.com/657287
@@ -95,7 +89,7 @@ function set_bash_prompt () {
 
   # Set the elixir version
   if is_elixir_folder ; then
-    parse_elixir_version
+    ELIXIR="$ELIXIR_VERSION"
   else
     ELIXIR=""
   fi
