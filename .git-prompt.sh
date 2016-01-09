@@ -1,39 +1,22 @@
 #!/bin/bash
-#
 # AUTHOR:
 #   Pierre-Alexandre Kofron
-#
-
-# The various escape codes that we can use to color our prompt.
 source ~/.bash_colors
 
-function check_file_existence {
-  if [ -f $1 ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
 function is_ruby_folder {
-  check_file_existence 'Gemfile'
+  [ -f 'Gemfile' ]
 }
 
 function is_node_folder {
-  check_file_existence 'package.json'
+  [ -f 'package.json' ]
 }
 
 function is_elixir_folder {
-  check_file_existence 'mix.exs'
+  [ -f 'mix.exs' ]
 }
 
-# Detect whether the current directory is a git repository.
 function is_git_repository {
   git branch > /dev/null 2>&1
-}
-
-function is_rails_folder {
-  grep 'rails' 'Gemfile' > /dev/null 2>&1
 }
 
 function parse_ruby_version {
