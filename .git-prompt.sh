@@ -4,7 +4,7 @@
 source ~/.bash_colors
 
 function is_ruby_folder {
-  [ -f 'Gemfile' ]
+  [[ -f 'Gemfile' || -f 'config.rb' ]]
 }
 
 function is_node_folder {
