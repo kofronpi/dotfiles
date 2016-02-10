@@ -7,7 +7,7 @@ alias l='ls -CF'
 alias be='bundle exec '
 alias fr='foreman run '
 alias br='be fr '
-alias bi='bundle install --path .bundle'
+alias bi='bundle install --path .bundle -j4'
 alias bu='bundle update '
 
 # Git
