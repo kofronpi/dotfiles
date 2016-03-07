@@ -9,3 +9,5 @@
 !.bash_cleaner.sh
 !.psqlrc
 !.gemrc
+!.profile
+!.bash_logout
