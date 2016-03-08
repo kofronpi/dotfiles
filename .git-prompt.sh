@@ -109,7 +109,7 @@ function set_bash_prompt () {
   fi
 
   # Set the bash prompt variable.
-  PS1="\u@\h \[${Green}\]${RUBY}${NODE} \[${Yellow}\]λ \[${Green}\]${ELIXIR} \[${Yellow}\]\W \[${BRANCH}\] \[${White}\]$ "
+  PS1="\u@\h \[${Green}\]${RUBY}${NODE} \[${Yellow}\]λ \[${Green}\]${ELIXIR} \[${Yellow}\]\W \[${BRANCH}\] \[${White}\]\$ "
 
 }
 
