@@ -33,3 +33,10 @@ alias gsubi="git submodule init"
 alias gsubu="git submodule update"
 alias gmerge="git merge --no-ff"
 
+#Paperwork
+function paperwork() { 
+	docker run -ti --rm \
+		-e DISPLAY=$DISPLAY -e XAUTHORITY=$HOME/.Xauthority -e HOME=$HOME -e USER=$USER \
+		-v $HOME:$HOME -v /tmp/.X11-unix:/tmp/.X11-unix -v /etc/sane.d/:/etc/sane.d/ \
+		tclavier/paperwork 
+}  
