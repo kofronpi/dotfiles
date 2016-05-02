@@ -10,6 +10,10 @@ alias br='be fr '
 alias bi='bundle install --path .bundle -j4'
 alias bu='bundle update '
 
+# Docker
+alias fig="docker-compose"
+alias dps="docker ps"
+
 # Git
 alias gbra="git branch"
 alias glog="git log --oneline --decorate --branches --remotes --tags -n 35"
