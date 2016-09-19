@@ -14,6 +14,9 @@ alias bu='bundle update '
 alias fig="docker-compose"
 alias dps="docker ps"
 
+#Noti
+alias noti="~/./noti"
+
 # Git
 alias gbra="git branch"
 alias glog="git log --oneline --decorate --branches --remotes --tags -n 35"
