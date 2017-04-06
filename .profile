@@ -25,6 +25,10 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export NVM_DIR="/home/pak/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
+
+export ANDROID_HOME=${HOME}/Android/Sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
  
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
